@@ -5,7 +5,7 @@ use std::fmt;
 
 pub struct Card<'a> {
     suit: &'a char,
-    card_number: &'a i8
+    pub card_number: &'a i8
 }
 
 impl<'a> fmt::Display for Card<'a> {
