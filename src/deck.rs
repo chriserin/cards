@@ -3,6 +3,7 @@ use self::rand::{thread_rng, Rng};
 
 use std::fmt;
 
+#[derive(Clone)]
 pub struct Card<'a> {
     suit: &'a char,
     pub card_number: &'a i8

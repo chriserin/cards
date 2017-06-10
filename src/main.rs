@@ -10,19 +10,27 @@ fn main() {
 
     let mut counter = 0;
 
-    while hand1.len() > 10 && hand2.len() > 10 && counter < 100_000 {
+    let mut sacrifices: Vec<deck::Card> = Vec::new();
+
+    while (hand1.len() > 10 && hand2.len() > 10 && counter < 100_000) || !sacrifices.is_empty() {
         let h1_card = hand1.remove(0);
         let h2_card = hand2.remove(0);
 
-        if h1_card.card_number > h2_card.card_number {
-            hand1.push(h1_card);
-            hand1.push(h2_card);
-        } else if h1_card.card_number < h2_card.card_number {
-            hand2.push(h1_card);
-            hand2.push(h2_card);
+        let h1_number = h1_card.card_number;
+        let h2_number = h2_card.card_number;
+
+        sacrifices.push(h1_card);
+        sacrifices.push(h2_card);
+
+        if h1_number > h2_number {
+            hand1.append(&mut sacrifices);
+        } else if h1_number < h2_number {
+            hand2.append(&mut sacrifices);
         } else {
-            hand1.push(h1_card);
-            hand2.push(h2_card);
+            let h1_sacs = &[hand1.remove(0), hand1.remove(0), hand1.remove(0)];
+            let h2_sacs = &[hand2.remove(0), hand2.remove(0), hand2.remove(0)];
+            sacrifices.extend_from_slice(h1_sacs);
+            sacrifices.extend_from_slice(h2_sacs);
         }
 
         counter += 1;
