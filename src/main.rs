@@ -34,7 +34,7 @@ fn main() {
         }
 
         counter += 1;
-        report(&hand1, &hand2, counter);
+        report(&hand1, &hand2, &sacrifices, counter);
     }
 
     if hand1.len() > hand2.len() {
@@ -44,8 +44,12 @@ fn main() {
     }
 }
 
-fn report(h1: &Vec<deck::Card>, h2: &Vec<deck::Card>, counter: i32) {
-    println!("Turn {}", counter);
+fn report(h1: &Vec<deck::Card>, h2: &Vec<deck::Card>, sacrifices: &Vec<deck::Card>, counter: i32) {
+    println!("---------Turn {}----------", counter);
+
+    if !sacrifices.is_empty() {
+        println!("Fighting for {} cards!", sacrifices.len());
+    }
 
     println!("Hand1 {}", h1.len());
     for card in h1 {
