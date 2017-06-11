@@ -11,7 +11,22 @@ pub struct Card<'a> {
 
 impl<'a> fmt::Display for Card<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}{}", self.card_number, self.suit)
+        let card_designation: String = match *self.card_number {
+            0 =>  "A".to_string(),
+            10 =>  "J".to_string(),
+            11 =>  "Q".to_string(),
+            12 =>  "K".to_string(),
+            x =>  x.to_string()
+        };
+
+        let suit_designation: &str = match *self.suit {
+            'h' => "♡",
+            'd' => "♢",
+            'c' => "♣",
+            's' => "♠",
+            _ => ""
+        };
+        write!(f, " {}{}", card_designation, suit_designation)
     }
 }
 
